@@ -1,0 +1,251 @@
+"""
+파일 로드 -> 씬 분할 -> Parent 청킹
+간단하고 깔끔한 버전
+"""
+
+import os
+import re
+from typing import List, Dict
+
+
+class DocumentLoader:
+    """다양한 파일 형식에서 문서 로드"""
+    
+    @staticmethod
+    def load_txt(file_path: str) -> str:
+        """TXT 파일 로드 (자동 인코딩 감지)"""
+        try:
+            import chardet
+            with open(file_path, 'rb') as f:
+                raw_data = f.read()
+                result = chardet.detect(raw_data)
+                detected_encoding = result['encoding']
+                confidence = result['confidence']
+                
+                if confidence > 0.7 and detected_encoding:
+                    try:
+                        text = raw_data.decode(detected_encoding)
+                        print(f"[OK] 파일 로드: {detected_encoding} (신뢰도: {confidence:.2f})")
+                        return text
+                    except Exception as e:
+                        print(f"디코딩 실패: {detected_encoding}")
+                        pass
+        except ImportError:
+            print("chardet 미설치 - 기본 인코딩으로 시도")
+            pass
+        
+        # Fallback: 한글 텍스트 파일의 일반적인 인코딩 순서
+        encodings = ['utf-8', 'cp949', 'euc-kr', 'utf-16', 'latin-1']
+        
+        for encoding in encodings:
+            try:
+                with open(file_path, 'r', encoding=encoding, errors='strict') as f:
+                    text = f.read()
+                    print(f"[OK] 파일 로드: {encoding}")
+                    return text
+            except (UnicodeDecodeError, UnicodeError, LookupError):
+                continue
+        
+        raise UnicodeDecodeError(
+            'unknown', b'', 0, 1,
+            f"지원하지 않는 인코딩: {encodings}"
+        )
+    
+    @staticmethod
+    def load_pdf(file_path: str) -> str:
+        """PDF 파일 로드"""
+        try:
+            import PyPDF2
+        except ImportError:
+            raise ImportError("PyPDF2 필요: pip install PyPDF2")
+        
+        text = []
+        with open(file_path, 'rb') as f:
+            pdf_reader = PyPDF2.PdfReader(f)
+            for page in pdf_reader.pages:
+                text.append(page.extract_text())
+        return '\n'.join(text)
+    
+    @staticmethod
+    def load_document(file_path: str) -> str:
+        """파일 확장자에 따라 문서 로드"""
+        ext = os.path.splitext(file_path)[1].lower()
+        
+        if ext == '.txt':
+            return DocumentLoader.load_txt(file_path)
+        elif ext == '.pdf':
+            return DocumentLoader.load_pdf(file_path)
+        else:
+            raise ValueError(f"지원하지 않는 파일 형식: {ext}")
+
+
+class SceneChunker:
+    """씬 기반 텍스트 분할 (스코어링 시스템)"""
+    
+    LOCATION_KEYWORDS = [
+        '방', '집', '거리', '학교', '사무실', '카페', '공원', '병원',
+        '역', '공항', '호텔', '식당', '상점', '마을', '도시', '숲',
+        '산', '바다', '강', '들판', '건물', '교실', '복도'
+    ]
+    
+    TIME_TRANSITIONS = [
+        '그때', '다음날', '잠시 후', '그 후', '이튿날', '며칠 후',
+        '다음', '그날', '아침', '저녁', '밤', '새벽', '오후',
+        '한참 후', '곧', '이윽고', '그러자', '순간'
+    ]
+    
+    def __init__(self, threshold: int = 30):
+        self.threshold = threshold
+    
+    def contains_new_location(self, sentence: str) -> bool:
+        """문장에 장소 키워드 포함 여부 확인"""
+        return any(loc in sentence for loc in self.LOCATION_KEYWORDS)
+    
+    def split_into_scenes(self, text: str) -> List[str]:
+        """스코어링 시스템으로 텍스트를 씬 단위로 분할"""
+        # 문장 단위 분할
+        sentences = re.split(r'([.!?]\s+)', text)
+        
+        merged_sentences = []
+        for i in range(0, len(sentences) - 1, 2):
+            if i + 1 < len(sentences):
+                merged_sentences.append(sentences[i] + sentences[i + 1])
+            else:
+                merged_sentences.append(sentences[i])
+        
+        scenes = []
+        current_scene = []
+        score = 0
+        
+        for sent in merged_sentences:
+            if not sent.strip():
+                continue
+            
+            # 1. 물리적 기호 체크
+            if "***" in sent or "---" in sent or "###" in sent:
+                score += 10
+            
+            # 2. 장소 변화 체크
+            if self.contains_new_location(sent):
+                score += 5
+            
+            # 3. 시간 전환 부사어 체크
+            if any(word in sent for word in self.TIME_TRANSITIONS):
+                score += 4
+            
+            # 4. 대화 종료 후 서술 전환 체크
+            if re.search(r'["\']\s*[.!?]\s+[^"\']+', sent):
+                score += 3
+            
+            current_scene.append(sent)
+            
+            # 점수 임계값 도달 시 씬 확정
+            if score >= self.threshold:
+                scenes.append(" ".join(current_scene))
+                current_scene = []
+                score = 0
+        
+        # 남은 문장 처리
+        if current_scene:
+            scenes.append(" ".join(current_scene))
+        
+        return scenes
+
+
+class ParentChunker:
+    """씬을 Parent 청크로 변환"""
+    
+    @staticmethod
+    def create_parent_chunks(scenes: List[str]) -> List[Dict]:
+        """각 씬을 Parent 청크로 생성"""
+        parent_chunks = []
+        
+        for scene_idx, scene in enumerate(scenes):
+            parent_chunk = {
+                'id': f"scene_{scene_idx}",
+                'text': scene,
+                'scene_index': scene_idx,
+                'char_count': len(scene)
+            }
+            parent_chunks.append(parent_chunk)
+        
+        return parent_chunks
+
+
+def process_file(file_path: str, scene_threshold: int = 7) -> List[Dict]:
+    """
+    파일 입력 -> 씬 분할 -> Parent 청킹
+    
+    Args:
+        file_path: 입력 파일 경로
+        scene_threshold: 씬 분할 임계값
+    
+    Returns:
+        Parent 청크 리스트
+    """
+    
+    print("=" * 60)
+    print("파일 로드 → 씬 분할 → Parent 청킹")
+    print("=" * 60)
+    
+    # 1. 파일 로드
+    print(f"\n[1/3] 파일 로드: {file_path}")
+    loader = DocumentLoader()
+    text = loader.load_document(file_path)
+    print(f"[OK] {len(text):,} 자 로드 완료")
+    
+    # 2. 씬 분할
+    print(f"\n[2/3] 씬 분할 (임계값={scene_threshold})")
+    scene_chunker = SceneChunker(threshold=scene_threshold)
+    scenes = scene_chunker.split_into_scenes(text)
+    print(f"[OK] {len(scenes):,}개 씬 생성")
+    
+    # 3. Parent 청킹
+    print(f"\n[3/3] Parent 청크 생성")
+    parent_chunks = ParentChunker.create_parent_chunks(scenes)
+    print(f"[OK] {len(parent_chunks):,}개 Parent 청크 생성 완료")
+    
+    print("\n" + "=" * 60)
+    
+    return parent_chunks
+
+
+def print_chunks_info(chunks: List[Dict]) -> None:
+    """청크 정보 출력"""
+    print("\n📊 청크 정보:")
+    print(f"  - 총 개수: {len(chunks)}")
+    
+    if chunks:
+        char_counts = [c['char_count'] for c in chunks]
+        print(f"  - 평균 크기: {sum(char_counts) / len(chunks):.0f} 자")
+        print(f"  - 최소 크기: {min(char_counts)} 자")
+        print(f"  - 최대 크기: {max(char_counts)} 자")
+        print(f"\n  첫 번째 청크 샘플:")
+        print(f"    ID: {chunks[0]['id']}")
+        print(f"    크기: {chunks[0]['char_count']} 자")
+        print(f"    내용: {chunks[0]['text'][:100]}...")
+
+
+if __name__ == "__main__":
+    # 사용 예시
+    import glob
+    
+    # 현재 디렉토리에서 .txt 파일 찾기
+    script_dir = os.path.dirname(__file__) or '.'
+    txt_files = glob.glob(os.path.join(script_dir, "*.txt"))
+    
+    if txt_files:
+        input_file = txt_files[0]
+        print(f"발견된 파일: {input_file}")
+        
+        # Parent 청킹 실행
+        parent_chunks = process_file(input_file, scene_threshold=7)
+        
+        # 결과 출력
+        print_chunks_info(parent_chunks)
+        
+        # 전체 청크 내용 출력 (옵션)
+        # for chunk in parent_chunks:
+        #     print(f"\n{chunk['id']}: {chunk['text'][:200]}...")
+    else:
+        print("❌ .txt 파일을 찾을 수 없습니다.")

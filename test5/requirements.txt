@@ -1,0 +1,56 @@
+# StoryProof Backend Requirements
+# Generated from current environment 'sp'
+
+## Core Dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.12.5
+pydantic-settings==2.12.0
+
+## Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.13.0
+
+## Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+## AI & LangChain
+# Using >=0.2.0 to ensure compatibility with recent updates
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-core>=0.2.0
+langchain-google-genai>=1.0.0
+google-generativeai==0.8.6
+#google-generativeai>=0.8.6 이렇게 바꾸거나, google-genai로 바꿔야함.
+
+# 코드에서 이런식으로 명시해줘야함.
+# from google import genai
+# import os
+# # 신버전 인증 방식 (Client 객체 생성)
+# client = genai.Client(api_key="YOUR_API_KEY")
+
+openai==1.6.1
+pinecone-client==3.0.0
+chromadb==0.4.18
+
+## Embedding & Search
+sentence-transformers==2.2.2
+rank-bm25==0.2.2
+scikit-learn==1.3.2
+
+## File Processing
+python-docx==1.1.0
+PyPDF2==3.0.1
+chardet==5.2.0
+olefile==0.47
+
+## Async & Background Tasks
+celery==5.3.4
+redis==5.0.1
+
+## Utilities
+python-dotenv==1.0.0
+tqdm==4.66.1

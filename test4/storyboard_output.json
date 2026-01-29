@@ -1,0 +1,212 @@
+{
+  "scenes": [
+    {
+      "scene_id": "scene_1",
+      "title": "토끼굴 아래로",
+      "summary": "알리스는 자신의 여동생의 책을 읽으며, 토끼가 나타나서 그녀를 찾아온다.",
+      "literary_elements": {
+        "mood": "놀람과 당황",
+        "original_context": "앨리스는 책을 읽고 있을 때, 토끼가 나타나서 그녀를 찾는 장면이다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "여동생의 책을 읽고 있을 때, 토끼가 나타나서 그녀를 찾는 장면이다."
+          }
+        ]
+      },
+      "original_chunk_id": "9cefb789-accd-436f-a7f5-29d961b0c27e"
+    },
+    {
+      "scene_id": "scene_2",
+      "title": "알리스가 토끼를 만나",
+      "summary": "알리스가 토끼를 만나고, 토끼가 그녀를 위해 어떤 행동을 취할지 예측하기 위해 그녀의 생각을 묻는다.",
+      "literary_elements": {
+        "mood": "놀람과 당황",
+        "original_context": "알리스가 토끼를 만나고, 그녀의 생각을 묻는 장면이다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "토끼가 그녀를 위해 어떤 행동을 취할지 예측하기 위해 그녀의 생각을 묻는다."
+          }
+        ]
+      },
+      "original_chunk_id": "9cefb789-accd-436f-a7f5-29d961b0c27e"
+    },
+    {
+      "scene_id": "scene_3",
+      "title": "알리스의 결정",
+      "summary": "알리스는 정원으로 들어가는 것을 결심한다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "그녀는 안타깝게도 테이블에서 열쇠를 찾지 못했다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "테이블로 다시 가서 열쇠를 찾았지만, 손이 닿을 수 없었다."
+          }
+        ]
+      },
+      "original_chunk_id": "d1c63395-840f-4780-b37b-36535789c835"
+    },
+    {
+      "scene_id": "scene_4",
+      "title": "알리스의 시선",
+      "summary": "알리스는 작은 유리 상자를 발견하며, 그 안에 케이크가 들어있다.",
+      "literary_elements": {
+        "mood": "기괴함",
+        "original_context": "알리스는 케이크에 'EAT ME'라는 글자가 적혀 있었다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "그녀는 케이크를 먹고, 열쇠에 닿을 수 있고, 문 밑으로 기어 들어갈 수 있다."
+          }
+        ]
+      },
+      "original_chunk_id": "d1c63395-840f-4780-b37b-36535789c835"
+    },
+    {
+      "scene_id": "scene_5",
+      "title": "알리스의 행동",
+      "summary": "알리스는 케이크를 먹고, 그 다음에 정원으로 들어가기 시작한다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 행동을 계획하고, 운송업체로 가기를 원한다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "그들은 반드시 운송업체로 가야 한다."
+          }
+        ]
+      },
+      "original_chunk_id": "d1c63395-840f-4780-b37b-36535789c835"
+    },
+    {
+      "scene_id": "scene_6",
+      "title": "알리스의 감정",
+      "summary": "알리스는 자신의 행동에 절망감을 느낀다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 행동에 절망감을 느낀다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "내가 무엇을 잘못했는지 모르겠다."
+          }
+        ]
+      },
+      "original_chunk_id": "d1c63395-840f-4780-b37b-36535789c835"
+    },
+    {
+      "scene_id": "scene_7",
+      "title": "알리스의 부채질",
+      "summary": "알리스는 홀에서 부채질하며 자신의 감정과 의문을 드러냅니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 부채와 장갑을 들고 홀에서 부채질을 하고 있습니다. 그녀는 오늘의 상황이 이상하다고 느낍니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "여보, 얘야! 어떻게? 오늘은 모든 게 이상해요! 그리고 어제 상황은 평소와 같았습니다. 밤사이에 내가 변한 걸까? 생각해 봅시다: 내가 그랬나요? 오늘 아침에 일어났을 때도 마찬가지였지? 거의 내 생각엔 느낌을 기억할 수 있다. 조금 다릅니다. 하지만 내가 같지 않다면 다음 질문은 누구인가? 나는 세상에? 아, 그거 정말 대단한 퍼즐이구나!"
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_8",
+      "title": "알리스의 생각",
+      "summary": "알리스는 자신의 변화를 고민하며 다른 사람들에게 변할 수 있다고 생각합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 고민하며 다른 사람들에게 변할 수 있다고 생각합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "난 에이다가 아닌 게 확실해요. 그 사람 머리가 너무 길어서요."
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_9",
+      "title": "알리스의 변신",
+      "summary": "알리스는 자신의 변화를 인정하고, 새로운 모습을 갖기 위해 노력합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 인정하고, 새로운 모습을 갖기 위해 노력합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "마벨로 바뀌었어요! 나는 '_어떻게 작은 일_—'이라고 말하려고 노력할 것입니다."
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_10",
+      "title": "알리스의 고개 숙이기",
+      "summary": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "고개를 숙이고 '다시 올라오세요!'라고 말하는 것은 소용이 없습니다. 나는 다만 고개를 들어 '그렇다면 나는 누구인가?'라고 말할 것이다. 그 점을 먼저 말씀해 주시고, 그러다가 내가 그 사람이 좋으면 올라오고, 아니면 그냥 가만히 있을 거야. 내가 다른 사람이 될 때까지 여기에서'"
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_11",
+      "title": "알리스의 탈출",
+      "summary": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "그런데, 이런!"
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_12",
+      "title": "알리스의 탈출구 찾기",
+      "summary": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "나는 이제 그에 대해 벌을 받을 것 같아요. 내 눈물 속에 빠져들고 있는 거야! 그것은 _will_ 이상한 일이 될 것입니다. 물론이죠! 그런데 요즘은 모든 게 이상해요."
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    },
+    {
+      "scene_id": "scene_13",
+      "title": "알리스의 탈출",
+      "summary": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+      "literary_elements": {
+        "mood": "나른함",
+        "original_context": "알리스는 자신의 변화를 받아들이고, 새로운 시작을 준비합니다.",
+        "key_dialogue": [
+          {
+            "character": "알리스",
+            "line": "바로 그때 그녀는 수영장에서 뭔가 튀는 소리를 조금 들었습니다. 그녀는 그것이 무엇인지 알아보기 위해 더 가까이 헤엄쳐 갔습니다. 처음에 그녀는 생각했습니다. 바다코끼리나 하마인 게 틀림없었는데, 그 순간 그녀는 얼마나 작은지 기억해 냈습니다. 그녀는 지금 그랬고, 곧 그 사람이 쥐 한 마리뿐이라는 것을 알아차렸습니다. 자, 자신처럼 빠져들었다."
+          }
+        ]
+      },
+      "original_chunk_id": "d7ee01f3-8d19-4b0b-afe0-fa4187d98284"
+    }
+  ]
+}

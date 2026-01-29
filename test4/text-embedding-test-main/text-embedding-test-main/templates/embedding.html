@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedding Similarity Analyzer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/embedding.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Embedding Similarity</h1>
+            <p class="subtitle">Text Embedding Similarity Analyzer</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Model Selection Section -->
+            <section class="section model-section">
+                <h2 class="section-title">Select Models</h2>
+                <div id="modelCheckboxes" class="model-grid">
+                    <!-- Model checkboxes will be dynamically added -->
+                </div>
+            </section>
+
+            <!-- Sentence Input Section -->
+            <section class="section sentence-section">
+                <div class="section-header">
+                    <h2 class="section-title">Enter Sentences</h2>
+                    <button type="button" id="addSentenceBtn" class="btn-add">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Add Sentence
+                    </button>
+                </div>
+                <div id="sentenceInputs" class="sentence-inputs">
+                    <!-- Sentence input fields will be dynamically added -->
+                </div>
+            </section>
+
+            <!-- Execute Button -->
+            <div class="action-section">
+                <button type="button" id="executeBtn" class="btn-execute">
+                    <span class="btn-text">Compare Embeddings</span>
+                    <span class="btn-loading" style="display: none;">
+                        <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+                            <circle class="spinner-circle" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle>
+                        </svg>
+                        Analyzing...
+                    </span>
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="section results-section" style="display: none;">
+                <h2 class="section-title">Results</h2>
+                <div id="resultsContainer" class="results-container">
+                    <!-- Results will be dynamically added -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Error Toast -->
+        <div id="errorToast" class="toast error-toast" style="display: none;">
+            <span id="errorMessage"></span>
+        </div>
+    </div>
+
+    <script src="/static/js/embedding.js"></script>
+</body>
+</html>
+
