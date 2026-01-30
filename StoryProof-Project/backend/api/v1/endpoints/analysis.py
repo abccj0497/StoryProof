@@ -5,16 +5,15 @@ AI 분석 요청 API 엔드포인트
 - 분석 상태 확인
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
+import os
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, File, UploadFile
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from backend.services.scene_analyzer import run_scene_analysis
 
-# from backend.db.session import get_db
-# from backend.core.security import get_current_user
-# from backend.schemas.analysis_schema import (
-#     AnalysisRequest, AnalysisResponse, AnalysisListResponse
-# )
-# from backend.services.ai_engine import analyze_novel, analyze_chapter
+# Mock/Placeholder settings and models for integration
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "YourApiKeyHere")
+OUTPUT_BASE_DIR = "output_v2"
 
 
 router = APIRouter()
@@ -22,35 +21,42 @@ router = APIRouter()
 
 # ===== 소설 전체 분석 요청 =====
 
-@router.post("/novels/{novel_id}", status_code=status.HTTP_202_ACCEPTED)
+@router.post("/novels/analyze", status_code=status.HTTP_202_ACCEPTED)
 async def request_novel_analysis(
-    # novel_id: int,
-    # analysis_request: AnalysisRequest,
-    # background_tasks: BackgroundTasks,
-    # current_user = Depends(get_current_user),
-    # db: Session = Depends(get_db)
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...)
 ):
     """
-    소설 전체 분석 요청
+    소설 전체 분석 요청 (파일 업로드 방식)
     
     Args:
-        novel_id: 소설 ID
-        analysis_request: 분석 요청 정보 (analysis_type)
         background_tasks: 백그라운드 작업
-        current_user: 현재 인증된 사용자
-        db: 데이터베이스 세션
+        file: 분석할 소설 텍스트 파일
         
     Returns:
-        AnalysisResponse: 분석 작업 정보 (status=PENDING)
-        
-    Raises:
-        HTTPException: 소설을 찾을 수 없거나 권한이 없는 경우
+        dict: 작업 시작 정보
     """
-    # TODO: 소설 조회 및 권한 확인
-    # TODO: 분석 레코드 생성 (status=PENDING)
-    # TODO: 백그라운드 작업 추가 또는 Celery 작업 큐에 추가
-    # TODO: 분석 ID 반환
-    pass
+    content = await file.read()
+    try:
+        text = content.decode('utf-8')
+    except UnicodeDecodeError:
+        text = content.decode('cp949')
+
+    output_dir = os.path.join(OUTPUT_BASE_DIR, f"analysis_{int(time.time())}")
+    
+    # 백그라운드 작업으로 분석 실행
+    background_tasks.add_task(
+        run_scene_analysis,
+        text=text,
+        api_key=GOOGLE_API_KEY,
+        output_dir=output_dir
+    )
+    
+    return {
+        "message": "Analysis started",
+        "output_directory": output_dir,
+        "status": "processing"
+    }
 
 
 # ===== 회차 분석 요청 =====

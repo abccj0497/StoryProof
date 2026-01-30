@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-# from backend.api.v1.endpoints import auth, novel, analysis, chat
+from backend.api.v1.endpoints import analysis
 # from backend.core.config import settings
 # from backend.db.session import engine
 
@@ -67,7 +67,7 @@ def register_routers() -> None:
     # TODO: 라우터 임포트 후 등록
     # app.include_router(auth.router, prefix="/api/v1/auth", tags=["인증"])
     # app.include_router(novel.router, prefix="/api/v1/novels", tags=["소설"])
-    # app.include_router(analysis.router, prefix="/api/v1/analysis", tags=["분석"])
+    app.include_router(analysis.router, prefix="/api/v1/analysis", tags=["분석"])
     # app.include_router(chat.router, prefix="/api/v1/chat", tags=["채팅"])
     pass
 
